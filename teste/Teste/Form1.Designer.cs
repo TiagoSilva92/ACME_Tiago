@@ -35,6 +35,7 @@ namespace Teste
             this.rbSim = new System.Windows.Forms.RadioButton();
             this.rbNao = new System.Windows.Forms.RadioButton();
             this.txtNivelDor = new System.Windows.Forms.TextBox();
+            this.dtpData = new System.Windows.Forms.DateTimePicker();
             this.txtDistancia = new System.Windows.Forms.TextBox();
             this.txtCusto = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -49,7 +50,6 @@ namespace Teste
             this.btnIncluir = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lstvVoos = new System.Windows.Forms.ListView();
-            this.dtpData = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -140,6 +140,15 @@ namespace Teste
             this.txtNivelDor.Size = new System.Drawing.Size(303, 31);
             this.txtNivelDor.TabIndex = 19;
             // 
+            // dtpData
+            // 
+            this.dtpData.Enabled = false;
+            this.dtpData.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpData.Location = new System.Drawing.Point(108, 9);
+            this.dtpData.Name = "dtpData";
+            this.dtpData.Size = new System.Drawing.Size(303, 31);
+            this.dtpData.TabIndex = 17;
+            // 
             // txtDistancia
             // 
             this.txtDistancia.Enabled = false;
@@ -199,6 +208,7 @@ namespace Teste
             // btnCancelar
             // 
             this.btnCancelar.BackColor = System.Drawing.Color.Khaki;
+            this.btnCancelar.Enabled = false;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCancelar.ForeColor = System.Drawing.SystemColors.Desktop;
@@ -214,6 +224,7 @@ namespace Teste
             // btnSalvar
             // 
             this.btnSalvar.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnSalvar.Enabled = false;
             this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSalvar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSalvar.Location = new System.Drawing.Point(12, 309);
@@ -251,6 +262,7 @@ namespace Teste
             // btnExcluir
             // 
             this.btnExcluir.BackColor = System.Drawing.Color.DarkRed;
+            this.btnExcluir.Enabled = false;
             this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnExcluir.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnExcluir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -297,15 +309,6 @@ namespace Teste
             this.lstvVoos.TabIndex = 3;
             this.lstvVoos.UseCompatibleStateImageBehavior = false;
             this.lstvVoos.SelectedIndexChanged += new System.EventHandler(this.lstvVoos_SelectedIndexChanged_1);
-            // 
-            // dtpData
-            // 
-            this.dtpData.Enabled = false;
-            this.dtpData.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpData.Location = new System.Drawing.Point(108, 9);
-            this.dtpData.Name = "dtpData";
-            this.dtpData.Size = new System.Drawing.Size(303, 31);
-            this.dtpData.TabIndex = 17;
             // 
             // Form1
             // 

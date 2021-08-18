@@ -29,11 +29,6 @@ C:\Users\tiago\OneDrive\Área de Trabalho\TESTE\teste\teste\bin\Debug\netcoreapp
 C:\Users\tiago\OneDrive\Área de Trabalho\TESTE\teste\teste\obj\Debug\netcoreapp3.1\teste.csproj.CopyComplete
 C:\Users\tiago\OneDrive\Área de Trabalho\TESTE\teste\teste\obj\Debug\netcoreapp3.1\teste.csproj.AssemblyReference.cache
 C:\Users\tiago\OneDrive\Área de Trabalho\TESTE\teste\teste\bin\Debug\netcoreapp3.1\teste.dll.config
-C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\Teste.Form1.resources
-C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.csproj.GenerateResource.cache
-C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.AssemblyInfoInputs.cache
-C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.AssemblyInfo.cs
-C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.csproj.CoreCompileInputs.cache
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\bin\Debug\netcoreapp3.1\teste.exe
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\bin\Debug\netcoreapp3.1\teste.dll.config
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\bin\Debug\netcoreapp3.1\teste.deps.json
@@ -55,7 +50,11 @@ C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\bin\Debug\netco
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\SQLite.Interop.dll
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.csproj.AssemblyReference.cache
+C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\Teste.Form1.resources
+C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.csproj.GenerateResource.cache
+C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.AssemblyInfoInputs.cache
+C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.AssemblyInfo.cs
+C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.csproj.CoreCompileInputs.cache
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.csproj.CopyComplete
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.dll
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.pdb
