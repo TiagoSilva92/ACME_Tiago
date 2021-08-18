@@ -32,9 +32,9 @@ namespace Teste
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.rbSim = new System.Windows.Forms.RadioButton();
+            this.rbNao = new System.Windows.Forms.RadioButton();
             this.txtNivelDor = new System.Windows.Forms.TextBox();
-            this.txtCaptura = new System.Windows.Forms.TextBox();
-            this.dtpData = new System.Windows.Forms.DateTimePicker();
             this.txtDistancia = new System.Windows.Forms.TextBox();
             this.txtCusto = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -49,6 +49,7 @@ namespace Teste
             this.btnIncluir = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lstvVoos = new System.Windows.Forms.ListView();
+            this.dtpData = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -89,8 +90,9 @@ namespace Teste
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.rbSim);
+            this.panel4.Controls.Add(this.rbNao);
             this.panel4.Controls.Add(this.txtNivelDor);
-            this.panel4.Controls.Add(this.txtCaptura);
             this.panel4.Controls.Add(this.dtpData);
             this.panel4.Controls.Add(this.txtDistancia);
             this.panel4.Controls.Add(this.txtCusto);
@@ -106,6 +108,30 @@ namespace Teste
             this.panel4.Size = new System.Drawing.Size(417, 362);
             this.panel4.TabIndex = 3;
             // 
+            // rbSim
+            // 
+            this.rbSim.AutoSize = true;
+            this.rbSim.Enabled = false;
+            this.rbSim.Location = new System.Drawing.Point(255, 181);
+            this.rbSim.Name = "rbSim";
+            this.rbSim.Size = new System.Drawing.Size(67, 29);
+            this.rbSim.TabIndex = 21;
+            this.rbSim.TabStop = true;
+            this.rbSim.Text = "Sim";
+            this.rbSim.UseVisualStyleBackColor = true;
+            // 
+            // rbNao
+            // 
+            this.rbNao.AutoSize = true;
+            this.rbNao.Enabled = false;
+            this.rbNao.Location = new System.Drawing.Point(108, 181);
+            this.rbNao.Name = "rbNao";
+            this.rbNao.Size = new System.Drawing.Size(70, 29);
+            this.rbNao.TabIndex = 20;
+            this.rbNao.TabStop = true;
+            this.rbNao.Text = "Não";
+            this.rbNao.UseVisualStyleBackColor = true;
+            // 
             // txtNivelDor
             // 
             this.txtNivelDor.Enabled = false;
@@ -113,23 +139,6 @@ namespace Teste
             this.txtNivelDor.Name = "txtNivelDor";
             this.txtNivelDor.Size = new System.Drawing.Size(303, 31);
             this.txtNivelDor.TabIndex = 19;
-            // 
-            // txtCaptura
-            // 
-            this.txtCaptura.Enabled = false;
-            this.txtCaptura.Location = new System.Drawing.Point(108, 183);
-            this.txtCaptura.Name = "txtCaptura";
-            this.txtCaptura.Size = new System.Drawing.Size(303, 31);
-            this.txtCaptura.TabIndex = 18;
-            // 
-            // dtpData
-            // 
-            this.dtpData.Enabled = false;
-            this.dtpData.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpData.Location = new System.Drawing.Point(108, 9);
-            this.dtpData.Name = "dtpData";
-            this.dtpData.Size = new System.Drawing.Size(303, 31);
-            this.dtpData.TabIndex = 17;
             // 
             // txtDistancia
             // 
@@ -289,6 +298,15 @@ namespace Teste
             this.lstvVoos.UseCompatibleStateImageBehavior = false;
             this.lstvVoos.SelectedIndexChanged += new System.EventHandler(this.lstvVoos_SelectedIndexChanged_1);
             // 
+            // dtpData
+            // 
+            this.dtpData.Enabled = false;
+            this.dtpData.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpData.Location = new System.Drawing.Point(108, 9);
+            this.dtpData.Name = "dtpData";
+            this.dtpData.Size = new System.Drawing.Size(303, 31);
+            this.dtpData.TabIndex = 17;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -324,12 +342,13 @@ namespace Teste
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnIncluir;
         private System.Windows.Forms.TextBox txtNivelDor;
-        private System.Windows.Forms.TextBox txtCaptura;
-        private System.Windows.Forms.DateTimePicker dtpData;
         private System.Windows.Forms.TextBox txtDistancia;
         private System.Windows.Forms.TextBox txtCusto;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListView lstvVoos;
+        private System.Windows.Forms.RadioButton rbSim;
+        private System.Windows.Forms.RadioButton rbNao;
+        private System.Windows.Forms.DateTimePicker dtpData;
     }
 }
 

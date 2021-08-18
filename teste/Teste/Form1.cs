@@ -2,16 +2,19 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using Teste.DAO;
 
 namespace Teste
 {
     public partial class Form1 : Form
     {
         #region Variáveis
-        string strConn = @"Data Source=C:\Users\tiago\OneDrive\Área de Trabalho\TESTE\BD\ACME.db";
+        string strConn = ConfigurationManager.AppSettings["StringConnexao"].ToString();
         string folder = ConfigurationManager.AppSettings["CaminhoArquivo"].ToString();
+        BancoDados bancodados = new BancoDados();
 
         DataTable dt = new DataTable();
         SQLiteConnection conn = null;
@@ -65,34 +68,37 @@ namespace Teste
         {
             try
             {
-                string sql = "SELECT ID_VOO, CAPTURA, NIVEL_DOR FROM TB_VOO;";
+                lstvVoos.Clear();
+                dt.Clear();
+                lstvVoos.Refresh();
+
+                string sql = "SELECT ID_VOO, DATA_VOO, CAPTURA, NIVEL_DOR FROM TB_VOO;";
 
                 conn = new SQLiteConnection(strConn);
                 SQLiteDataAdapter da = new SQLiteDataAdapter(sql, strConn);
                 da.Fill(dt);
 
-                lstvVoos.Clear();
-                lstvVoos.Refresh();
-
                 lstvVoos.View = View.Details;
 
-                string coluna = "ID";
-                lstvVoos.Columns.Add(coluna);
-                //string coluna1 = "Data";
-                //lstvVoos.Columns.Add(coluna1);
-                string coluna2 = "Captura";
-                lstvVoos.Columns.Add(coluna2);
-                string coluna3 = "Nivel de Dor";
-                lstvVoos.Columns.Add(coluna3);
+                lstvVoos.Columns.Add("ID");
+                lstvVoos.Columns.Add("Data");
+                lstvVoos.Columns.Add("Captura");
+                lstvVoos.Columns.Add("Nivel de Dor");
 
-                for (int i = 0; i < dt.Rows.Count; i++)
+                lstvVoos.Columns[0].Width = 0;
+
+                
+
+                foreach (DataRow linha in dt.Rows)
                 {
-                    DataRow dr = dt.Rows[i];
-                    ListViewItem listitem = new ListViewItem(dr["ID_VOO"].ToString());
-                    //listitem.SubItems.AddD(dr["DATA_VOO"].ToString());
-                    listitem.SubItems.Add(dr["CAPTURA"].ToString());
-                    listitem.SubItems.Add(dr["NIVEL_DOR"].ToString());
-                    lstvVoos.Items.Add(listitem);
+                    ListViewItem item = new ListViewItem(linha[0].ToString());
+
+                    for (int i = 1; i < dt.Columns.Count; i++)
+                    {
+                        item.SubItems.Add(linha[i].ToString());
+                    }
+
+                    lstvVoos.Items.Add(item);
                 }
             }
             catch (Exception ex)
@@ -106,51 +112,46 @@ namespace Teste
             }
         }
 
-        private void CarregarParametrosLinhaSelecionada()
+        private void CarregarParametrosLinhaSelecionada(string id)
         {
-            string data = lstvVoos.Items.ToString();
-            string captura = lstvVoos.Columns[1].ToString();
-            //string nivelDor = lstvVoos.SelectedIndices[2].Text.ToString();
+            string sql = $"SELECT * FROM TB_VOO where ID_VOO = {id};";
 
-            txtCaptura.Text = data;
+            conn = new SQLiteConnection(strConn);
+            SQLiteDataAdapter da = new SQLiteDataAdapter(sql, conn);
+            da.Fill(dt);
+
+            for (int i = 1; i < dt.Rows.Count; i++)
+            {
+                DataRow dr = dt.Rows[i];
+                txtCusto.Text = dr.ItemArray[4].ToString();
+                txtDistancia.Text = dr.ItemArray[5].ToString();
+                txtNivelDor.Text = dr.ItemArray[3].ToString();
+
+                string valorCaptura = dr.ItemArray[2].ToString();
+
+                if (valorCaptura == "S")
+                    rbSim.Checked = true;
+                else
+                    rbNao.Checked = true;
+
+                string dataRecebida = Convert.ToDateTime(dr.ItemArray[1].ToString()).ToString("dd/MM/yyyy");
+
+                if (dataRecebida != null)
+                    dtpData.Value = DateTime.ParseExact(dataRecebida, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
+
+            string data = lstvVoos.Items.ToString();
+            string custo = lstvVoos.Columns[1].ToString();
         }
 
         private void AtivarComponentes()
         {
-            txtCaptura.Enabled = true;
+            rbSim.Enabled = true;
+            rbNao.Enabled = true;
             txtCusto.Enabled = true;
             txtDistancia.Enabled = true;
             txtNivelDor.Enabled = true;
             dtpData.Enabled = true;
-        }
-
-        private int ExcluirRegistro(string id)
-        {
-            int resultado = -1;
-
-            using (SQLiteConnection conn = new SQLiteConnection(strConn))
-            {
-                conn.Open();
-                using (SQLiteCommand cmd = new SQLiteCommand(conn))
-                {
-                    cmd.CommandText = $"DELETE FROM TB_VOO  WHERE ID_VOO = {id};";
-                    cmd.Prepare();
-                    //cmd.Parameters.AddWithValue("@Id", voo.Id);
-                    try
-                    {
-                        resultado = cmd.ExecuteNonQuery();
-                    }
-                    catch (SQLiteException ex)
-                    {
-                        throw ex;
-                    }
-                    finally
-                    {
-                        conn.Close();
-                    }
-                }
-            }
-            return resultado;
         }
 
         #endregion
@@ -158,7 +159,9 @@ namespace Teste
         #region Eventos
         private void lstvVoos_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            CarregarParametrosLinhaSelecionada();
+            string id = lstvVoos.SelectedItems[0].Text.ToString();
+
+            CarregarParametrosLinhaSelecionada(id);
         }
 
         private void btnIncluir_Click(object sender, EventArgs e)
@@ -170,7 +173,11 @@ namespace Teste
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
+            string id = lstvVoos.SelectedItems[0].Text.ToString();
 
+            bancodados.ExcluirRegistro(id);
+
+            CarregarDadosListBoxView();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -182,7 +189,6 @@ namespace Teste
         {
 
         }
-
 
         #endregion
     }
