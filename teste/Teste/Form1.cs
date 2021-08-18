@@ -12,12 +12,14 @@ namespace Teste
     public partial class Form1 : Form
     {
         #region Variáveis
+
         string strConn = ConfigurationManager.AppSettings["StringConnexao"].ToString();
         string folder = ConfigurationManager.AppSettings["CaminhoArquivo"].ToString();
         BancoDados bancodados = new BancoDados();
 
         DataTable dt = new DataTable();
         SQLiteConnection conn = null;
+
         #endregion
 
         #region Inicialização
@@ -79,12 +81,14 @@ namespace Teste
                 da.Fill(dt);
 
                 lstvVoos.View = View.Details;
-
                 lstvVoos.Columns.Add("ID");
                 lstvVoos.Columns.Add("Data");
                 lstvVoos.Columns.Add("Captura");
                 lstvVoos.Columns.Add("Nivel de Dor");
 
+                lstvVoos.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                lstvVoos.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                
                 lstvVoos.Columns[0].Width = 0;
 
                 foreach (DataRow linha in dt.Rows)
@@ -113,13 +117,15 @@ namespace Teste
         private void CarregarParametrosLinhaSelecionada(string id)
         {
             string sql = $"SELECT * FROM TB_VOO where ID_VOO = {id};";
+
             try
             {
                 conn = new SQLiteConnection(strConn);
                 SQLiteDataAdapter da = new SQLiteDataAdapter(sql, conn);
+                da.AcceptChangesDuringFill = false;
                 da.Fill(dt);
 
-                for (int i = 1; i < dt.Rows.Count; i++)
+                for (int i = 2; i < dt.Rows.Count; i++)
                 {
                     DataRow dr = dt.Rows[i];
                     txtCusto.Text = dr.ItemArray[4].ToString();
@@ -182,15 +188,42 @@ namespace Teste
             btnExcluir.Enabled = false;
             btnCancelar.Enabled = true;
         }
+
+        private void AtualizarCadastros()
+        {
+            string captura = "";
+
+            btnSalvar.Enabled = true;
+            btnCancelar.Enabled = true;
+
+            string id = lstvVoos.SelectedItems[0].Text.ToString();
+
+            if (rbSim.Checked)
+                captura = "S";
+
+            if (rbNao.Checked)
+                captura = "N";
+
+            bancodados.AtualizarRegistro(id, Convert.ToDateTime(dtpData.Text).ToString("yyyy-MM-dd 00:00:00"), Convert.ToDouble(txtCusto.Text), Convert.ToInt32(txtDistancia.Text), captura, Convert.ToInt32(txtNivelDor.Text));
+        }
+
         #endregion
 
         #region Eventos
+
         private void lstvVoos_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            string id = lstvVoos.SelectedItems[0].Text.ToString();
+            if (this.lstvVoos.SelectedItems.Count == 0)
+                return;
+
+            string id = this.lstvVoos.SelectedItems[0].Text;
+
+            CarregarParametrosLinhaSelecionada(id);
+
+            AtivarComponentes();
+
             btnExcluir.Enabled = true;
             btnCancelar.Enabled = true;
-            CarregarParametrosLinhaSelecionada(id);
         }
 
         private void btnIncluir_Click(object sender, EventArgs e)
@@ -223,7 +256,7 @@ namespace Teste
                 captura = "S";
 
             if (rbNao.Checked)
-                captura = "S";
+                captura = "N";
 
             int nivelDor = Convert.ToInt32(txtNivelDor.Text);
 
@@ -240,6 +273,37 @@ namespace Teste
             CarregarDadosListBoxView();
             DesativarComponentes();
         }
+
+        private void txtCusto_TextChanged(object sender, EventArgs e)
+        {
+            AtualizarCadastros();
+        }
+
+        private void txtDistancia_TextChanged(object sender, EventArgs e)
+        {
+            AtualizarCadastros();
+        }
+
+        private void txtNivelDor_TextChanged(object sender, EventArgs e)
+        {
+            AtualizarCadastros();
+        }
+
+        private void dtpData_ValueChanged(object sender, EventArgs e)
+        {
+            AtualizarCadastros();
+        }
+
+        private void rbNao_CheckedChanged(object sender, EventArgs e)
+        {
+            AtualizarCadastros();
+        }
+
+        private void rbSim_CheckedChanged(object sender, EventArgs e)
+        {
+            AtualizarCadastros();
+        }
+
         #endregion
     }
 }

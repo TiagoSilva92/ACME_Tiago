@@ -81,7 +81,7 @@ namespace Teste.DAO
             return resultado;
         }
 
-        public int AtualizarRegistro()
+        public int AtualizarRegistro(string id, string data, double custo, int distancia, string captura, int nivelDor)
         {
             int resultado = -1;
 
@@ -90,7 +90,7 @@ namespace Teste.DAO
                 conn.Open();
                 using (SQLiteCommand cmd = new SQLiteCommand(conn))
                 {
-                    cmd.CommandText = $"DELETE FROM TB_VOO  WHERE ID_VOO ;";
+                    cmd.CommandText = $"UPDATE TB_VOO SET DATA_VOO = {data}, CUSTO = {custo}, DISTANCIA = {distancia}, CAPTURA = {captura}, NIVEL_DOR = {nivelDor} WHERE ID_VOO = {id}";
 
                     try
                     {

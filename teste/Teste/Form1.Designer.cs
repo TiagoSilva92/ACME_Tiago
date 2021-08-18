@@ -29,6 +29,7 @@ namespace Teste
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -50,11 +51,13 @@ namespace Teste
             this.btnIncluir = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lstvVoos = new System.Windows.Forms.ListView();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -70,19 +73,20 @@ namespace Teste
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(821, 473);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(945, 490);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
-            this.panel2.Location = new System.Drawing.Point(374, 3);
+            this.panel2.Location = new System.Drawing.Point(498, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(444, 469);
+            this.panel2.Size = new System.Drawing.Size(444, 484);
             this.panel2.TabIndex = 1;
             // 
             // panel4
@@ -105,7 +109,7 @@ namespace Teste
             this.panel4.Controls.Add(this.label1);
             this.panel4.Location = new System.Drawing.Point(16, 91);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(417, 362);
+            this.panel4.Size = new System.Drawing.Size(417, 383);
             this.panel4.TabIndex = 3;
             // 
             // rbSim
@@ -115,10 +119,11 @@ namespace Teste
             this.rbSim.Location = new System.Drawing.Point(255, 181);
             this.rbSim.Name = "rbSim";
             this.rbSim.Size = new System.Drawing.Size(67, 29);
-            this.rbSim.TabIndex = 21;
+            this.rbSim.TabIndex = 6;
             this.rbSim.TabStop = true;
             this.rbSim.Text = "Sim";
             this.rbSim.UseVisualStyleBackColor = true;
+            this.rbSim.CheckedChanged += new System.EventHandler(this.rbSim_CheckedChanged);
             // 
             // rbNao
             // 
@@ -127,10 +132,11 @@ namespace Teste
             this.rbNao.Location = new System.Drawing.Point(108, 181);
             this.rbNao.Name = "rbNao";
             this.rbNao.Size = new System.Drawing.Size(70, 29);
-            this.rbNao.TabIndex = 20;
+            this.rbNao.TabIndex = 5;
             this.rbNao.TabStop = true;
             this.rbNao.Text = "Não";
             this.rbNao.UseVisualStyleBackColor = true;
+            this.rbNao.CheckedChanged += new System.EventHandler(this.rbNao_CheckedChanged);
             // 
             // txtNivelDor
             // 
@@ -138,7 +144,8 @@ namespace Teste
             this.txtNivelDor.Location = new System.Drawing.Point(108, 241);
             this.txtNivelDor.Name = "txtNivelDor";
             this.txtNivelDor.Size = new System.Drawing.Size(303, 31);
-            this.txtNivelDor.TabIndex = 19;
+            this.txtNivelDor.TabIndex = 7;
+            this.txtNivelDor.TextChanged += new System.EventHandler(this.txtNivelDor_TextChanged);
             // 
             // dtpData
             // 
@@ -147,7 +154,8 @@ namespace Teste
             this.dtpData.Location = new System.Drawing.Point(108, 9);
             this.dtpData.Name = "dtpData";
             this.dtpData.Size = new System.Drawing.Size(303, 31);
-            this.dtpData.TabIndex = 17;
+            this.dtpData.TabIndex = 2;
+            this.dtpData.ValueChanged += new System.EventHandler(this.dtpData_ValueChanged);
             // 
             // txtDistancia
             // 
@@ -155,7 +163,8 @@ namespace Teste
             this.txtDistancia.Location = new System.Drawing.Point(109, 120);
             this.txtDistancia.Name = "txtDistancia";
             this.txtDistancia.Size = new System.Drawing.Size(303, 31);
-            this.txtDistancia.TabIndex = 16;
+            this.txtDistancia.TabIndex = 4;
+            this.txtDistancia.TextChanged += new System.EventHandler(this.txtDistancia_TextChanged);
             // 
             // txtCusto
             // 
@@ -163,7 +172,8 @@ namespace Teste
             this.txtCusto.Location = new System.Drawing.Point(109, 67);
             this.txtCusto.Name = "txtCusto";
             this.txtCusto.Size = new System.Drawing.Size(302, 31);
-            this.txtCusto.TabIndex = 15;
+            this.txtCusto.TabIndex = 3;
+            this.txtCusto.TextChanged += new System.EventHandler(this.txtCusto_TextChanged);
             // 
             // label7
             // 
@@ -216,7 +226,7 @@ namespace Teste
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(5);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(112, 34);
-            this.btnCancelar.TabIndex = 7;
+            this.btnCancelar.TabIndex = 9;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -231,7 +241,7 @@ namespace Teste
             this.btnSalvar.Margin = new System.Windows.Forms.Padding(5);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(112, 34);
-            this.btnSalvar.TabIndex = 6;
+            this.btnSalvar.TabIndex = 8;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = false;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -295,7 +305,7 @@ namespace Teste
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(365, 469);
+            this.panel1.Size = new System.Drawing.Size(489, 484);
             this.panel1.TabIndex = 2;
             // 
             // lstvVoos
@@ -305,18 +315,30 @@ namespace Teste
             this.lstvVoos.HideSelection = false;
             this.lstvVoos.Location = new System.Drawing.Point(0, 0);
             this.lstvVoos.Name = "lstvVoos";
-            this.lstvVoos.Size = new System.Drawing.Size(365, 469);
+            this.lstvVoos.Size = new System.Drawing.Size(489, 484);
             this.lstvVoos.TabIndex = 3;
             this.lstvVoos.UseCompatibleStateImageBehavior = false;
             this.lstvVoos.SelectedIndexChanged += new System.EventHandler(this.lstvVoos_SelectedIndexChanged_1);
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.tableLayoutPanel1);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(945, 490);
+            this.panel5.TabIndex = 2;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(821, 473);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(945, 490);
+            this.Controls.Add(this.panel5);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(967, 546);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ACME FLIGHT MANAGER";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -325,6 +347,7 @@ namespace Teste
             this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -352,6 +375,7 @@ namespace Teste
         private System.Windows.Forms.RadioButton rbSim;
         private System.Windows.Forms.RadioButton rbNao;
         private System.Windows.Forms.DateTimePicker dtpData;
+        private System.Windows.Forms.Panel panel5;
     }
 }
 
