@@ -213,6 +213,8 @@ namespace Teste
 
         public void lstvVoos_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+            vooCadastrado.ID = null;
+
             if (this.lstvVoos.SelectedItems.Count == 0)
                 return;
 
@@ -223,26 +225,38 @@ namespace Teste
 
             AtivarComponentes();
 
+            CarregarDadosListBoxView();
+
             btnIncluir.Enabled = true;
             btnExcluir.Enabled = true;
         }
 
         private void btnIncluir_Click(object sender, EventArgs e)
         {
+            vooCadastrado.ID = null;
+
             btnCancelar.Enabled = true;
             btnSalvar.Enabled = true;
 
             AtivarComponentes();
             LimparCampos();
+
+            btnSalvar.Enabled = false;
+            btnCancelar.Enabled = false;
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            string id = lstvVoos.SelectedItems[0].Text.ToString();
-
-            bancodados.ExcluirRegistro(id);
+            bancodados.ExcluirRegistro(vooCadastrado.ID);
 
             CarregarDadosListBoxView();
+
+            LimparCampos();
+
+            btnSalvar.Enabled = false;
+            btnCancelar.Enabled = false;
+
+            vooCadastrado.ID = null;
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -308,6 +322,8 @@ namespace Teste
             CarregarDadosListBoxView();
             DesativarComponentes();
             LimparCampos();
+
+            vooCadastrado.ID = null;
         }
 
         private void txtNivelDor_Leave(object sender, EventArgs e)
