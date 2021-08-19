@@ -147,6 +147,7 @@ namespace Teste
             this.txtNivelDor.Size = new System.Drawing.Size(303, 31);
             this.txtNivelDor.TabIndex = 7;
             this.txtNivelDor.TextChanged += new System.EventHandler(this.txtNivelDor_TextChanged);
+            this.txtNivelDor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNivelDor_KeyPress);
             this.txtNivelDor.Leave += new System.EventHandler(this.txtNivelDor_Leave);
             // 
             // dtpData
@@ -168,6 +169,7 @@ namespace Teste
             this.txtDistancia.Size = new System.Drawing.Size(303, 31);
             this.txtDistancia.TabIndex = 4;
             this.txtDistancia.TextChanged += new System.EventHandler(this.txtDistancia_TextChanged);
+            this.txtDistancia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDistancia_KeyPress);
             this.txtDistancia.Leave += new System.EventHandler(this.txtDistancia_Leave);
             // 
             // txtCusto
@@ -178,6 +180,7 @@ namespace Teste
             this.txtCusto.Size = new System.Drawing.Size(302, 31);
             this.txtCusto.TabIndex = 3;
             this.txtCusto.TextChanged += new System.EventHandler(this.txtCusto_TextChanged);
+            this.txtCusto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCusto_KeyPress);
             this.txtCusto.Leave += new System.EventHandler(this.txtCusto_Leave);
             // 
             // label7

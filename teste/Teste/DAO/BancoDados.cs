@@ -62,7 +62,7 @@ namespace Teste.DAO
                         resultado = cmd.ExecuteNonQuery();
 
                         if (resultado == 1)
-                            MessageBox.Show("Cadastro realizado com sucesso!", "Cadastro Excluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Cadastro realizado com sucesso!", "Cadastro", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
                             MessageBox.Show("Erro ao cadastrar!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -70,7 +70,7 @@ namespace Teste.DAO
                     }
                     catch (SQLiteException ex)
                     {
-                        MessageBox.Show($"Erro ao cadastrar cadastro! Erro: {ex}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"Erro ao cadastrar! Erro: {ex}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         throw ex;
                     }
                     finally

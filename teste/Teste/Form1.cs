@@ -256,7 +256,7 @@ namespace Teste
 
             if (!Regex.IsMatch(txtCusto.Text, verifica) || !Regex.IsMatch(txtDistancia.Text, verifica) || !Regex.IsMatch(txtDistancia.Text, verifica))
             {
-                MessageBox.Show("Por favor, digitar os campos numéricos corretamente!", "ATENÇÃO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Por favor, preencher todos os campos corretamente!", "ATENÇÃO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -269,11 +269,11 @@ namespace Teste
             if (dtpData.Text == "" || txtCusto.Text == "" || txtDistancia.Text == "" || captura == "" || txtNivelDor.Text == "")
             {
                 MessageBox.Show("Por favor, preencher todos os campos!", "ATENÇÃO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return ;
+                return;
             }
 
             novoCadastro.Data = Convert.ToDateTime(dtpData.Text).ToString("yyyy-MM-dd 00:00:00");
-            
+
             string custo = txtCusto.Text;
             string custoReplace = custo.Replace(",", ".");
 
@@ -284,7 +284,7 @@ namespace Teste
             novoCadastro.Captura = captura;
             novoCadastro.NivelDor = Convert.ToInt32(txtNivelDor.Text);
 
-            if(vooCadastrado.ID != null)
+            if (vooCadastrado.ID != null)
             {
                 if (vooCadastrado.Data != novoCadastro.Data || vooCadastrado.Custo != novoCadastro.Custo || vooCadastrado.Distancia != novoCadastro.Distancia || vooCadastrado.Captura != novoCadastro.Captura || vooCadastrado.NivelDor != novoCadastro.NivelDor)
                     bancodados.AtualizarRegistro(vooCadastrado.ID, novoCadastro.Data, novoCadastro.Custo, novoCadastro.Distancia, novoCadastro.Captura, novoCadastro.NivelDor);
@@ -312,7 +312,8 @@ namespace Teste
 
         private void txtNivelDor_Leave(object sender, EventArgs e)
         {
-            novoCadastro.NivelDor = Convert.ToInt16(txtNivelDor.Text);
+            if (txtNivelDor.Text != "")
+                novoCadastro.NivelDor = Convert.ToInt16(txtNivelDor.Text);
         }
 
         private void txtNivelDor_TextChanged(object sender, EventArgs e)
@@ -340,7 +341,8 @@ namespace Teste
 
         private void txtDistancia_Leave(object sender, EventArgs e)
         {
-            novoCadastro.Distancia = Convert.ToInt16(txtDistancia.Text);
+            if (txtDistancia.Text != "")
+                novoCadastro.Distancia = Convert.ToInt16(txtDistancia.Text);
         }
 
         private void dtpData_ValueChanged(object sender, EventArgs e)
@@ -370,6 +372,27 @@ namespace Teste
                 novoCadastro.Captura = "S";
                 HabilitarSalvarCancelar();
             }
+        }
+
+        private void txtCusto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ',') && (e.KeyChar != '.'))
+                e.Handled = true;
+
+            if ((e.KeyChar == ',') && (e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+                e.Handled = true;
+        }
+
+        private void txtNivelDor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void txtDistancia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar))
+                e.Handled = true;
         }
 
         #endregion
