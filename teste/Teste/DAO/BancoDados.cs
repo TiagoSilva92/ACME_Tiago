@@ -8,6 +8,27 @@ namespace Teste.DAO
     class BancoDados
     {
         string strConn = ConfigurationManager.AppSettings["StringConnexao"].ToString();
+        SQLiteConnection conn = null;
+
+        public void CriarTabela(string query)
+        {
+            try
+            {
+                conn = new SQLiteConnection(query);
+                SQLiteDataAdapter da = new SQLiteDataAdapter(query, conn);
+                da.AcceptChangesDuringFill = false;
+                MessageBox.Show("Tabela criada com sucesso!", "Cadastro Excluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao criar tabela! Erro: {ex}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
 
         public int ExcluirRegistro(string id)
         {
@@ -48,7 +69,6 @@ namespace Teste.DAO
         public int IncluirRegistro(string data, string custo, int distancia, string captura, int nivelDor)
         {
             int resultado = -1;
-           
 
             using (SQLiteConnection conn = new SQLiteConnection(strConn))
             {
@@ -64,9 +84,7 @@ namespace Teste.DAO
                         if (resultado == 1)
                             MessageBox.Show("Cadastro realizado com sucesso!", "Cadastro", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
-                        {
                             MessageBox.Show("Erro ao cadastrar!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
                     }
                     catch (SQLiteException ex)
                     {

@@ -49,18 +49,20 @@ namespace Teste
 
         private bool VerificarExistenciaTabela()
         {
+            string createTable = "CREATE TABLE TB_VOO (ID_VOO INTEGER         PRIMARY KEY AUTOINCREMENT, DATA_VOO DATETIME, CUSTO     NUMERIC(10, 2), DISTANCIA INT, CAPTURA   CHAR(1),  NIVEL_DOR INT);";
+
             try
             {
                 string arquivo = Path.Combine(folder, "acme.sqlite");
 
                 if (!File.Exists(arquivo))
                 {
-                    string createTable = "CREATE TABLE TB_VOO (ID_VOO INTEGER         PRIMARY KEY AUTOINCREMENT, DATA_VOO DATETIME, CUSTO     NUMERIC(10, 2), DISTANCIA INT, CAPTURA   CHAR(1),  NIVEL_DOR INT);";
-
                     using (StreamWriter sw = File.CreateText(arquivo))
                     {
                         sw.WriteLine(createTable);
                     }
+
+                    bancodados.CriarTabela(createTable);
                 }
 
                 return true;
@@ -198,7 +200,8 @@ namespace Teste
             rbSim.Checked = false;
             rbNao.Checked = false;
             btnExcluir.Enabled = false;
-            btnCancelar.Enabled = true;
+            btnCancelar.Enabled = false;
+            btnSalvar.Enabled = false;
         }
 
         private void HabilitarSalvarCancelar()
@@ -229,6 +232,8 @@ namespace Teste
 
             btnIncluir.Enabled = true;
             btnExcluir.Enabled = true;
+            btnCancelar.Enabled = false;
+            btnSalvar.Enabled = false;
         }
 
         private void btnIncluir_Click(object sender, EventArgs e)
@@ -261,6 +266,9 @@ namespace Teste
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            btnSalvar.Enabled = false;
+            btnCancelar.Enabled = false;
+
             if (rbSim.Checked)
                 captura = "S";
             if (rbNao.Checked)
@@ -309,9 +317,6 @@ namespace Teste
             CarregarDadosListBoxView();
 
             LimparCampos();
-
-            btnSalvar.Enabled = true;
-            btnCancelar.Enabled = true;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -401,13 +406,13 @@ namespace Teste
 
         private void txtNivelDor_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 e.Handled = true;
         }
 
         private void txtDistancia_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 e.Handled = true;
         }
 
