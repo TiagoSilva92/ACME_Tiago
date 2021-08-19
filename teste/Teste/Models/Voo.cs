@@ -6,10 +6,11 @@ namespace Teste.Models
 {
     class Voo
     {
+        public string ID { get; set; }
         public string Data { get; set; }
-        public double Custo { get; set; }
+        public string Custo { get; set; }
         public int Distancia { get; set; }
-        public char Sexo { get; set; }
-        public int SituacaoCliente { get; set; }
+        public string Captura { get; set; }
+        public int NivelDor { get; set; }
     }
 }

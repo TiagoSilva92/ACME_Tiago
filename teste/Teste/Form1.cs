@@ -4,8 +4,10 @@ using System.Data;
 using System.Data.SQLite;
 using System.Globalization;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Teste.DAO;
+using Teste.Models;
 
 namespace Teste
 {
@@ -15,8 +17,12 @@ namespace Teste
 
         string strConn = ConfigurationManager.AppSettings["StringConnexao"].ToString();
         string folder = ConfigurationManager.AppSettings["CaminhoArquivo"].ToString();
-        BancoDados bancodados = new BancoDados();
+        string captura = "";
 
+        Voo vooCadastrado = new Voo();
+        Voo novoCadastro = new Voo();
+
+        BancoDados bancodados = new BancoDados();
         DataTable dt = new DataTable();
         SQLiteConnection conn = null;
 
@@ -88,7 +94,7 @@ namespace Teste
 
                 lstvVoos.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                 lstvVoos.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                
+
                 lstvVoos.Columns[0].Width = 0;
 
                 foreach (DataRow linha in dt.Rows)
@@ -116,38 +122,45 @@ namespace Teste
 
         private void CarregarParametrosLinhaSelecionada(string id)
         {
-            string sql = $"SELECT * FROM TB_VOO where ID_VOO = {id};";
+            string query = $"SELECT * FROM TB_VOO where ID_VOO = {id};";
 
             try
             {
                 conn = new SQLiteConnection(strConn);
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, conn);
+                SQLiteDataAdapter da = new SQLiteDataAdapter(query, conn);
                 da.AcceptChangesDuringFill = false;
+                dt.Clear();
                 da.Fill(dt);
 
-                for (int i = 2; i < dt.Rows.Count; i++)
-                {
-                    DataRow dr = dt.Rows[i];
-                    txtCusto.Text = dr.ItemArray[4].ToString();
-                    txtDistancia.Text = dr.ItemArray[5].ToString();
-                    txtNivelDor.Text = dr.ItemArray[3].ToString();
+                DataRow dr = dt.Rows[0];
 
-                    string valorCaptura = dr.ItemArray[2].ToString();
+                string dataRecebida = Convert.ToDateTime(dr.ItemArray[1].ToString()).ToString("dd/MM/yyyy");
 
-                    if (valorCaptura == "S")
-                        rbSim.Checked = true;
-                    else
-                        rbNao.Checked = true;
+                if (dataRecebida != null)
+                    dtpData.Value = DateTime.ParseExact(dataRecebida, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
-                    string dataRecebida = Convert.ToDateTime(dr.ItemArray[1].ToString()).ToString("dd/MM/yyyy");
+                txtCusto.Text = dr.ItemArray[4].ToString();
+                txtDistancia.Text = dr.ItemArray[5].ToString();
 
-                    if (dataRecebida != null)
-                        dtpData.Value = DateTime.ParseExact(dataRecebida, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                }
+                string valorCaptura = dr.ItemArray[2].ToString();
+
+                if (valorCaptura == "S")
+                    rbSim.Checked = true;
+                else
+                    rbNao.Checked = true;
+
+                txtNivelDor.Text = dr.ItemArray[3].ToString();
+
+                vooCadastrado.ID = dr.ItemArray[0].ToString(); ;
+                vooCadastrado.Data = dtpData.Value.ToString();
+                vooCadastrado.Custo = txtCusto.Text;
+                vooCadastrado.Distancia = Convert.ToInt32(txtDistancia.Text);
+                vooCadastrado.Captura = valorCaptura;
+                vooCadastrado.NivelDor = Convert.ToInt32(txtNivelDor.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro :" + ex.Message);
+                MessageBox.Show("Erro:" + ex.Message);
             }
             finally
             {
@@ -178,8 +191,7 @@ namespace Teste
 
         private void LimparCampos()
         {
-            string data = DateTime.Now.ToString("dd-MM-yyyy");
-            dtpData.Value = Convert.ToDateTime(data);
+            dtpData.Value = DateTime.Today.AddDays(0);
             txtCusto.Text = "";
             txtDistancia.Text = "";
             txtNivelDor.Text = "";
@@ -189,47 +201,37 @@ namespace Teste
             btnCancelar.Enabled = true;
         }
 
-        private void AtualizarCadastros()
+        private void HabilitarSalvarCancelar()
         {
-            string captura = "";
-
             btnSalvar.Enabled = true;
             btnCancelar.Enabled = true;
-
-            string id = lstvVoos.SelectedItems[0].Text.ToString();
-
-            if (rbSim.Checked)
-                captura = "S";
-
-            if (rbNao.Checked)
-                captura = "N";
-
-            bancodados.AtualizarRegistro(id, Convert.ToDateTime(dtpData.Text).ToString("yyyy-MM-dd 00:00:00"), Convert.ToDouble(txtCusto.Text), Convert.ToInt32(txtDistancia.Text), captura, Convert.ToInt32(txtNivelDor.Text));
         }
 
         #endregion
 
         #region Eventos
 
-        private void lstvVoos_SelectedIndexChanged_1(object sender, EventArgs e)
+        public void lstvVoos_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (this.lstvVoos.SelectedItems.Count == 0)
                 return;
 
             string id = this.lstvVoos.SelectedItems[0].Text;
+            vooCadastrado.ID = this.lstvVoos.SelectedItems[0].Text;
 
             CarregarParametrosLinhaSelecionada(id);
 
             AtivarComponentes();
 
+            btnIncluir.Enabled = true;
             btnExcluir.Enabled = true;
-            btnCancelar.Enabled = true;
         }
 
         private void btnIncluir_Click(object sender, EventArgs e)
         {
             btnCancelar.Enabled = true;
             btnSalvar.Enabled = true;
+
             AtivarComponentes();
             LimparCampos();
         }
@@ -245,24 +247,57 @@ namespace Teste
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            string captura = "";
-
-            string data = Convert.ToDateTime(dtpData.Text).ToString("yyyy-MM-dd 00:00:00");
-
-            double custo = Convert.ToDouble(txtCusto.Text);
-            int distancia = Convert.ToInt32(txtDistancia.Text);
-
             if (rbSim.Checked)
                 captura = "S";
-
             if (rbNao.Checked)
                 captura = "N";
 
-            int nivelDor = Convert.ToInt32(txtNivelDor.Text);
+            string verifica = "^[0-9]";
 
-            bancodados.IncluirRegistro(data, custo, distancia, captura, nivelDor);
+            if (!Regex.IsMatch(txtCusto.Text, verifica) || !Regex.IsMatch(txtDistancia.Text, verifica) || !Regex.IsMatch(txtDistancia.Text, verifica))
+            {
+                MessageBox.Show("Por favor, digitar os campos numéricos corretamente!", "ATENÇÃO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (txtCusto.Text == "" || txtDistancia.Text == "" || captura == "" || txtNivelDor.Text == "")
+            {
+                MessageBox.Show("Por favor, preencher todos os campos!", "ATENÇÃO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (dtpData.Text == "" || txtCusto.Text == "" || txtDistancia.Text == "" || captura == "" || txtNivelDor.Text == "")
+            {
+                MessageBox.Show("Por favor, preencher todos os campos!", "ATENÇÃO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return ;
+            }
+
+            novoCadastro.Data = Convert.ToDateTime(dtpData.Text).ToString("yyyy-MM-dd 00:00:00");
+            
+            string custo = txtCusto.Text;
+            string custoReplace = custo.Replace(",", ".");
+
+            novoCadastro.Custo = custoReplace;
+
+            novoCadastro.Distancia = Convert.ToInt32(txtDistancia.Text);
+
+            novoCadastro.Captura = captura;
+            novoCadastro.NivelDor = Convert.ToInt32(txtNivelDor.Text);
+
+            if(vooCadastrado.ID != null)
+            {
+                if (vooCadastrado.Data != novoCadastro.Data || vooCadastrado.Custo != novoCadastro.Custo || vooCadastrado.Distancia != novoCadastro.Distancia || vooCadastrado.Captura != novoCadastro.Captura || vooCadastrado.NivelDor != novoCadastro.NivelDor)
+                    bancodados.AtualizarRegistro(vooCadastrado.ID, novoCadastro.Data, novoCadastro.Custo, novoCadastro.Distancia, novoCadastro.Captura, novoCadastro.NivelDor);
+            }
+            else
+                bancodados.IncluirRegistro(novoCadastro.Data, novoCadastro.Custo, novoCadastro.Distancia, novoCadastro.Captura, novoCadastro.NivelDor);
 
             CarregarDadosListBoxView();
+
+            LimparCampos();
+
+            btnSalvar.Enabled = true;
+            btnCancelar.Enabled = true;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -272,36 +307,69 @@ namespace Teste
 
             CarregarDadosListBoxView();
             DesativarComponentes();
+            LimparCampos();
         }
 
-        private void txtCusto_TextChanged(object sender, EventArgs e)
+        private void txtNivelDor_Leave(object sender, EventArgs e)
         {
-            AtualizarCadastros();
-        }
-
-        private void txtDistancia_TextChanged(object sender, EventArgs e)
-        {
-            AtualizarCadastros();
+            novoCadastro.NivelDor = Convert.ToInt16(txtNivelDor.Text);
         }
 
         private void txtNivelDor_TextChanged(object sender, EventArgs e)
         {
-            AtualizarCadastros();
+            if (txtNivelDor.Enabled)
+                HabilitarSalvarCancelar();
+        }
+
+        private void txtCusto_TextChanged(object sender, EventArgs e)
+        {
+            if (txtCusto.Enabled)
+                HabilitarSalvarCancelar();
+        }
+
+        private void txtCusto_Leave(object sender, EventArgs e)
+        {
+            novoCadastro.Custo = txtCusto.Text;
+        }
+
+        private void txtDistancia_TextChanged(object sender, EventArgs e)
+        {
+            if (txtDistancia.Enabled)
+                HabilitarSalvarCancelar();
+        }
+
+        private void txtDistancia_Leave(object sender, EventArgs e)
+        {
+            novoCadastro.Distancia = Convert.ToInt16(txtDistancia.Text);
         }
 
         private void dtpData_ValueChanged(object sender, EventArgs e)
         {
-            AtualizarCadastros();
+            if (dtpData.Enabled)
+                HabilitarSalvarCancelar();
         }
 
-        private void rbNao_CheckedChanged(object sender, EventArgs e)
+        private void dtpData_Leave(object sender, EventArgs e)
         {
-            AtualizarCadastros();
+            novoCadastro.Data = Convert.ToDateTime(dtpData.Text).ToString("yyyy-MM-dd 00:00:00"); ;
         }
 
-        private void rbSim_CheckedChanged(object sender, EventArgs e)
+        private void rbNao_Click(object sender, EventArgs e)
         {
-            AtualizarCadastros();
+            if (rbNao.Enabled)
+            {
+                novoCadastro.Captura = "N";
+                HabilitarSalvarCancelar();
+            }
+        }
+
+        private void rbSim_Click(object sender, EventArgs e)
+        {
+            if (rbSim.Enabled)
+            {
+                novoCadastro.Captura = "S";
+                HabilitarSalvarCancelar();
+            }
         }
 
         #endregion

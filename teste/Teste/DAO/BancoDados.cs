@@ -19,12 +19,12 @@ namespace Teste.DAO
                 using (SQLiteCommand cmd = new SQLiteCommand(conn))
                 {
                     cmd.CommandText = $"DELETE FROM TB_VOO  WHERE ID_VOO = {id};";
-                    
+
                     try
                     {
                         resultado = cmd.ExecuteNonQuery();
 
-                        if(resultado == 1)
+                        if (resultado == 1)
                             MessageBox.Show("Cadastro excluído com sucesso!", "Cadastro Excluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
@@ -45,9 +45,10 @@ namespace Teste.DAO
             return resultado;
         }
 
-        public int IncluirRegistro(string data, double custo, int distancia, string captura, int nivelDor)
+        public int IncluirRegistro(string data, string custo, int distancia, string captura, int nivelDor)
         {
             int resultado = -1;
+           
 
             using (SQLiteConnection conn = new SQLiteConnection(strConn))
             {
@@ -61,7 +62,7 @@ namespace Teste.DAO
                         resultado = cmd.ExecuteNonQuery();
 
                         if (resultado == 1)
-                            MessageBox.Show("cadastro realizado com sucesso!", "Cadastro Excluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Cadastro realizado com sucesso!", "Cadastro Excluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
                             MessageBox.Show("Erro ao cadastrar!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -81,7 +82,7 @@ namespace Teste.DAO
             return resultado;
         }
 
-        public int AtualizarRegistro(string id, string data, double custo, int distancia, string captura, int nivelDor)
+        public int AtualizarRegistro(string id, string data, string custo, int distancia, string captura, int nivelDor)
         {
             int resultado = -1;
 
@@ -90,22 +91,24 @@ namespace Teste.DAO
                 conn.Open();
                 using (SQLiteCommand cmd = new SQLiteCommand(conn))
                 {
-                    cmd.CommandText = $"UPDATE TB_VOO SET DATA_VOO = {data}, CUSTO = {custo}, DISTANCIA = {distancia}, CAPTURA = {captura}, NIVEL_DOR = {nivelDor} WHERE ID_VOO = {id}";
+                    string teste = $"UPDATE TB_VOO SET DATA_VOO = '{data}', CUSTO = {custo}, DISTANCIA = {distancia}, CAPTURA = '{captura}', NIVEL_DOR = {nivelDor} WHERE ID_VOO = {id}";
+
+                    cmd.CommandText = $"UPDATE TB_VOO SET DATA_VOO = '{data}', CUSTO = '{custo}', DISTANCIA = {distancia}, CAPTURA = '{captura}', NIVEL_DOR = {nivelDor} WHERE ID_VOO = {id}";
 
                     try
                     {
                         resultado = cmd.ExecuteNonQuery();
 
                         if (resultado == 1)
-                            MessageBox.Show("Cadastro excluído com sucesso!", "Cadastro Excluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Cadastro atualizado com sucesso!", "Cadastro Atualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
-                            MessageBox.Show("Erro ao excluir cadastro!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Erro ao atualizar cadastro!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     catch (SQLiteException ex)
                     {
-                        MessageBox.Show($"Erro ao excluir cadastro! Erro: {ex}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"Erro ao atualizar cadastro! Erro: {ex}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         throw ex;
                     }
                     finally

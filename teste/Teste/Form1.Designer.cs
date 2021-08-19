@@ -47,6 +47,7 @@ namespace Teste
             this.btnSalvar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lblID = new System.Windows.Forms.Label();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnIncluir = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -123,7 +124,7 @@ namespace Teste
             this.rbSim.TabStop = true;
             this.rbSim.Text = "Sim";
             this.rbSim.UseVisualStyleBackColor = true;
-            this.rbSim.CheckedChanged += new System.EventHandler(this.rbSim_CheckedChanged);
+            this.rbSim.Click += new System.EventHandler(this.rbSim_Click);
             // 
             // rbNao
             // 
@@ -136,7 +137,7 @@ namespace Teste
             this.rbNao.TabStop = true;
             this.rbNao.Text = "Não";
             this.rbNao.UseVisualStyleBackColor = true;
-            this.rbNao.CheckedChanged += new System.EventHandler(this.rbNao_CheckedChanged);
+            this.rbNao.Click += new System.EventHandler(this.rbNao_Click);
             // 
             // txtNivelDor
             // 
@@ -146,6 +147,7 @@ namespace Teste
             this.txtNivelDor.Size = new System.Drawing.Size(303, 31);
             this.txtNivelDor.TabIndex = 7;
             this.txtNivelDor.TextChanged += new System.EventHandler(this.txtNivelDor_TextChanged);
+            this.txtNivelDor.Leave += new System.EventHandler(this.txtNivelDor_Leave);
             // 
             // dtpData
             // 
@@ -156,6 +158,7 @@ namespace Teste
             this.dtpData.Size = new System.Drawing.Size(303, 31);
             this.dtpData.TabIndex = 2;
             this.dtpData.ValueChanged += new System.EventHandler(this.dtpData_ValueChanged);
+            this.dtpData.Leave += new System.EventHandler(this.dtpData_Leave);
             // 
             // txtDistancia
             // 
@@ -165,6 +168,7 @@ namespace Teste
             this.txtDistancia.Size = new System.Drawing.Size(303, 31);
             this.txtDistancia.TabIndex = 4;
             this.txtDistancia.TextChanged += new System.EventHandler(this.txtDistancia_TextChanged);
+            this.txtDistancia.Leave += new System.EventHandler(this.txtDistancia_Leave);
             // 
             // txtCusto
             // 
@@ -174,6 +178,7 @@ namespace Teste
             this.txtCusto.Size = new System.Drawing.Size(302, 31);
             this.txtCusto.TabIndex = 3;
             this.txtCusto.TextChanged += new System.EventHandler(this.txtCusto_TextChanged);
+            this.txtCusto.Leave += new System.EventHandler(this.txtCusto_Leave);
             // 
             // label7
             // 
@@ -261,6 +266,7 @@ namespace Teste
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.lblID);
             this.panel3.Controls.Add(this.btnExcluir);
             this.panel3.Controls.Add(this.btnIncluir);
             this.panel3.Location = new System.Drawing.Point(16, 11);
@@ -269,13 +275,21 @@ namespace Teste
             this.panel3.Size = new System.Drawing.Size(415, 64);
             this.panel3.TabIndex = 2;
             // 
+            // lblID
+            // 
+            this.lblID.AutoSize = true;
+            this.lblID.Location = new System.Drawing.Point(308, 14);
+            this.lblID.Name = "lblID";
+            this.lblID.Size = new System.Drawing.Size(0, 25);
+            this.lblID.TabIndex = 2;
+            // 
             // btnExcluir
             // 
             this.btnExcluir.BackColor = System.Drawing.Color.DarkRed;
             this.btnExcluir.Enabled = false;
             this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnExcluir.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnExcluir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnExcluir.ForeColor = System.Drawing.Color.White;
             this.btnExcluir.Location = new System.Drawing.Point(154, 14);
             this.btnExcluir.Margin = new System.Windows.Forms.Padding(5);
             this.btnExcluir.Name = "btnExcluir";
@@ -346,6 +360,7 @@ namespace Teste
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -376,6 +391,7 @@ namespace Teste
         private System.Windows.Forms.RadioButton rbNao;
         private System.Windows.Forms.DateTimePicker dtpData;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label lblID;
     }
 }
 
