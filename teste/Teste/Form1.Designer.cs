@@ -1,5 +1,5 @@
 ﻿
-namespace Teste
+namespace Tiago
 {
     partial class Form1
     {

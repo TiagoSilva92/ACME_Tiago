@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jjzrcf3HfyBMaZf8Zg48CMI8ijePcj/3iOVxbe/FHsaV9PXSSRKashSE55OQJMfG/E56uhD70KXu6HvkFEE6wQ==",
+  "dgSpecHash": "vmNTIb9CxCJMGGyR5QeeLj9jMIFc112PfmpDYvOsnwoSOsEAWdgP61gtgaf+a/EJP9msLm5UcWFlc2a3jFpiQg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tiago\\OneDrive\\Área de Trabalho\\ACME_Tiago\\teste\\teste\\teste.csproj",
+  "projectFilePath": "C:\\Users\\tiago\\OneDrive\\Área de Trabalho\\ACME_Tiago\\teste\\teste\\Tiago.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tiago\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

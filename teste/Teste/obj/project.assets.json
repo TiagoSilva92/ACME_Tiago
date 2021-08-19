@@ -1163,9 +1163,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tiago\\OneDrive\\Área de Trabalho\\ACME_Tiago\\teste\\teste\\teste.csproj",
-      "projectName": "teste",
-      "projectPath": "C:\\Users\\tiago\\OneDrive\\Área de Trabalho\\ACME_Tiago\\teste\\teste\\teste.csproj",
+      "projectUniqueName": "C:\\Users\\tiago\\OneDrive\\Área de Trabalho\\ACME_Tiago\\teste\\teste\\Tiago.csproj",
+      "projectName": "Tiago",
+      "projectPath": "C:\\Users\\tiago\\OneDrive\\Área de Trabalho\\ACME_Tiago\\teste\\teste\\Tiago.csproj",
       "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\tiago\\OneDrive\\Área de Trabalho\\ACME_Tiago\\teste\\teste\\obj\\",
       "projectStyle": "PackageReference",

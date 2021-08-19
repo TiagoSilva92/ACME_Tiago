@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Teste.Models
+namespace Tiago.Models
 {
     class Voo
     {

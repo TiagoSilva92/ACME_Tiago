@@ -60,4 +60,3 @@ C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netco
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.dll
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.pdb
 C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.genruntimeconfig.cache
-C:\Users\tiago\OneDrive\Área de Trabalho\ACME_Tiago\teste\teste\obj\Debug\netcoreapp3.1\teste.csproj.AssemblyReference.cache

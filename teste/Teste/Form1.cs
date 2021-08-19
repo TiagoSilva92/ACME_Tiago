@@ -6,10 +6,10 @@ using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Teste.DAO;
-using Teste.Models;
+using Tiago.DAO;
+using Tiago.Models;
 
-namespace Teste
+namespace Tiago
 {
     public partial class Form1 : Form
     {

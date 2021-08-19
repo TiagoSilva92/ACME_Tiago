@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Data.SQLite;
 using System.Windows.Forms;
 
-namespace Teste.DAO
+namespace Tiago.DAO
 {
     class BancoDados
     {
@@ -109,8 +109,6 @@ namespace Teste.DAO
                 conn.Open();
                 using (SQLiteCommand cmd = new SQLiteCommand(conn))
                 {
-                    string teste = $"UPDATE TB_VOO SET DATA_VOO = '{data}', CUSTO = {custo}, DISTANCIA = {distancia}, CAPTURA = '{captura}', NIVEL_DOR = {nivelDor} WHERE ID_VOO = {id}";
-
                     cmd.CommandText = $"UPDATE TB_VOO SET DATA_VOO = '{data}', CUSTO = '{custo}', DISTANCIA = {distancia}, CAPTURA = '{captura}', NIVEL_DOR = {nivelDor} WHERE ID_VOO = {id}";
 
                     try
